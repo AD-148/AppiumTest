@@ -1,0 +1,15 @@
+{
+  "name": "jiohotstar-appium-automation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Appium automation for launching JioHotstar, searching a video, and playing the third result.",
+  "type": "module",
+  "scripts": {
+    "appium": "powershell -ExecutionPolicy Bypass -File scripts/start-appium.ps1",
+    "test:jiohotstar": "node scripts/jiohotstar-search-play-third.js",
+    "test:youtube": "node scripts/youtube-search-play-third.js"
+  },
+  "dependencies": {
+    "webdriverio": "^9.0.0"
+  }
+}

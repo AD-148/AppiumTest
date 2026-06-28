@@ -1,0 +1,6 @@
+node_modules/
+.venv/
+.idea/
+.junie/
+.env
+npm-debug.log*
