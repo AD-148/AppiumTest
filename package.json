@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "appium": "powershell -ExecutionPolicy Bypass -File scripts/start-appium.ps1",
-    "test:jiohotstar": "node scripts/jiohotstar-search-play-third.js",
-    "test:youtube": "node scripts/youtube-search-play-third.js"
+    "test:jiohotstar": "node scripts/tests/jiohotstar.test.js",
+    "test:youtube": "node scripts/tests/youtube.test.js"
   },
   "dependencies": {
     "webdriverio": "^9.0.0"

@@ -1,5 +1,6 @@
 import { remote } from "webdriverio";
 import { androidCapabilities, serverOptions } from "./appium-capabilities.js";
+import assert from "assert";
 
 export async function waitForDisplayed(driver, selector, timeout = 20000) {
   const element = await driver.$(selector);
@@ -9,12 +10,16 @@ export async function waitForDisplayed(driver, selector, timeout = 20000) {
 
 export async function click(driver, selector, timeout = 20000) {
   const element = await waitForDisplayed(driver, selector, timeout);
+  assert.ok(await element.isDisplayed(), `Element with selector ${selector} is not displayed`);
+  assert.ok(await element.isEnabled(), `Element with selector ${selector} is not enabled`);
   await element.click();
   return element;
 }
 
 export async function setValue(driver, selector, value, timeout = 20000) {
   const element = await waitForDisplayed(driver, selector, timeout);
+  assert.ok(await element.isDisplayed(), `Element with selector ${selector} is not displayed`);
+  assert.ok(await element.isEnabled(), `Element with selector ${selector} is not enabled`);
   await element.clearValue();
   await element.setValue(value);
   return element;
