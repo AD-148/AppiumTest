@@ -1,0 +1,21 @@
+//webIO Helper
+
+
+const targetElement = await $('~my-hidden-element-accessibility-id');
+
+// WebdriverIO will automatically attempt to scroll up to 10 times until visible
+await targetElement.scrollIntoView(); 
+
+// Optional: Customize direction and max scroll attempts
+await targetElement.scrollIntoView({ 
+    maxScrolls: 15, 
+    scrollDirection: 'down' 
+});
+
+// platform  specific engine
+
+// Use Android UIAutomator to automatically find and scroll to the text element
+const targetText = "Settings Options";
+const element = await $(`android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("${targetText}"))`);
+
+await element.click();

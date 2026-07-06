@@ -15,6 +15,7 @@ export class JioHotstarPage extends BasePage {
     const searchBtn = await this.findElement(this.searchButtonSelector);
     await searchBtn.waitForDisplayed({ timeout: 20000 });
     await this.assertDisplayed(searchBtn, "Search Button");
+    await this.assertText(searchBtn, "Search", "Search Button");
 
     // Click search button (click helper checks enabled/displayed)
     await this.click(this.searchButtonSelector, "Search Button");

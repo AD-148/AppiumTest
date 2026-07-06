@@ -19,6 +19,15 @@ export class BasePage {
     assert.ok(isEnabled, `${name} is not enabled`);
   }
 
+  async assertText(element, expectedText, name = "Element") {
+    const text = await element.getText();
+    const contentDesc = await element.getAttribute("content-desc");
+    assert.ok(
+      text === expectedText || contentDesc === expectedText,
+      `${name} text/content-desc is not "${expectedText}". Got text: "${text}", content-desc: "${contentDesc}"`
+    );
+  }
+
   async click(selector, name = "Element") {
     const element = await this.findElement(selector);
     await element.waitForDisplayed({ timeout: 20000 });

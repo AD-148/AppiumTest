@@ -1,5 +1,5 @@
 import { remote } from "webdriverio";
-import { androidCapabilities, serverOptions } from "./appium-capabilities.js";
+import { options, serverOptions } from "./appium-capabilities.js";
 import assert from "assert";
 
 export async function waitForDisplayed(driver, selector, timeout = 20000) {
@@ -23,6 +23,16 @@ export async function setValue(driver, selector, value, timeout = 20000) {
   await element.clearValue();
   await element.setValue(value);
   return element;
+}
+
+export async function assertText(driver, selector, expectedText, name = "Element", timeout = 20000) {
+  const element = await waitForDisplayed(driver, selector, timeout);
+  const text = await element.getText();
+  const contentDesc = await element.getAttribute("content-desc");
+  assert.ok(
+    text === expectedText || contentDesc === expectedText,
+    `${name} text/content-desc is not "${expectedText}". Got text: "${text}", content-desc: "${contentDesc}"`
+  );
 }
 
 export async function scrollDown(driver) {
@@ -131,11 +141,11 @@ export async function playSearchResult(
 export async function runAndroidTest({ appPackage, appActivity, testFn }) {
   const env = process.env;
   const appiumServerUrl = env.APPIUM_SERVER_URL ?? "http://127.0.0.1:4723";
-  const capabilities = androidCapabilities({ appPackage, appActivity });
+  const caps = options({ appPackage, appActivity });
 
   let driver;
   try {
-    driver = await remote(serverOptions(appiumServerUrl, capabilities));
+    driver = await remote(serverOptions(appiumServerUrl, caps));
     await testFn(driver);
   } catch (error) {
     console.error("Test execution failed:", error);

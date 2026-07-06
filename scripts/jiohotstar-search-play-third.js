@@ -1,4 +1,4 @@
-import {runAndroidTest, click, setValue} from "./appium-helpers.js";
+import {runAndroidTest, click, setValue, assertText} from "./appium-helpers.js";
 
 const env = process.env;
 
@@ -28,6 +28,7 @@ const jioHotstarAppActivity =
       appPackage: jioHotstarAppPackage,
       appActivity: jioHotstarAppActivity,
       testFn: async (driver) => {
+        await assertText(driver, selectors.searchButton, "Search", "Search Button");
         await click(driver, selectors.searchButton);
         await setValue(driver, selectors.searchInput, searchText);
         await driver.pressKeyCode(66);
